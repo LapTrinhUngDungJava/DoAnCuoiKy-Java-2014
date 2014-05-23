@@ -46,26 +46,26 @@ public class NhanVienSieuThiDlg extends javax.swing.JDialog {
                 break;
         }
         jlbAccount.setText(user.getMaUser());
-        jlbMatKhau.setText(user.getMatKhau());
-        jlbEmail.setText(user.getEmailUser());
+        //jlbMatKhau.setText(user.getMatKhau());
+        //jlbEmail.setText(user.getEmailUser());
         
         jlbHoVaTen.setText(user.getTenUser());
         jlbNgaySinh.setText(user.getNgaySinh().toString());
-        jlbCMND.setText(user.getCmndUser());
+        //jlbCMND.setText(user.getCmndUser());
         jtxtaDiaChi.setText(user.getDiaChiUser());
         jtxtfPhone.setText(user.getPhoneUser());
         
         if(user.getGioiTinh().trim().equals("1")){
-            jlbGioiTinh.setText("Nam");
+           // jlbGioiTinh.setText("Nam");
         }else if(user.getGioiTinh().trim().equals("0")){
-            jlbGioiTinh.setText("Nữ");
+            //jlbGioiTinh.setText("Nữ");
         }
     }
     private void setDataFindFormUser(UserAccount user){
 
         if(user.getMaUser().equals(user_account.getMaUser())){
             setDataFormUser(user);
-            jlbMatKhau.setEnabled(true);
+           // jlbMatKhau.setEnabled(true);
             jtxtaDiaChi.setEditable(true);
             jtxtfPhone.setEditable(true);
             return;
@@ -85,21 +85,21 @@ public class NhanVienSieuThiDlg extends javax.swing.JDialog {
                 break;
         }
         jlbAccount.setText(user.getMaUser());
-        jlbEmail.setText(user.getEmailUser());
-        jlbMatKhau.setText("******");
-        jlbMatKhau.setEnabled(false);
+        //jlbEmail.setText(user.getEmailUser());
+        //jlbMatKhau.setText("******");
+        //jlbMatKhau.setEnabled(false);
         jlbHoVaTen.setText(user.getTenUser());
         jlbNgaySinh.setText(user.getNgaySinh().toString());
-        jlbCMND.setText(user.getCmndUser());
+        //jlbCMND.setText(user.getCmndUser());
         jtxtaDiaChi.setText(user.getDiaChiUser());
         jtxtaDiaChi.setEditable(false);
         jtxtfPhone.setText(user.getPhoneUser());
         jtxtfPhone.setEditable(false);
         
         if(user.getGioiTinh().trim().equals("1")){
-            jlbGioiTinh.setText("Nam");
+            //jlbGioiTinh.setText("Nam");
         }else if(user.getGioiTinh().trim().equals("0")){
-            jlbGioiTinh.setText("Nữ");
+            //jlbGioiTinh.setText("Nữ");
         }
     }
     /**
