@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 22, 2014 5:59:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="pojo.UserAccount" table="user_account" schema="public">
+        <id name="maUser" type="string">
+            <column name="ma_user" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="matKhau" type="string">
+            <column name="mat_khau" length="20" />
+        </property>
+        <property name="tenUser" type="string">
+            <column name="ten_user" length="20" />
+        </property>
+        <property name="emailUser" type="string">
+            <column name="email_user" length="40" />
+        </property>
+        <property name="diaChiUser" type="string">
+            <column name="dia_chi_user" length="300" />
+        </property>
+        <property name="phoneUser" type="string">
+            <column name="phone_user" length="20" />
+        </property>
+        <property name="avatarUser" type="string">
+            <column name="avatar_user" length="300" />
+        </property>
+        <property name="cmndUser" type="string">
+            <column name="cmnd_user" length="30" />
+        </property>
+        <property name="ngaySinh" type="date">
+            <column name="ngay_sinh" length="13" />
+        </property>
+        <property name="gioiTinh" type="string">
+            <column name="gioi_tinh" length="1" />
+        </property>
+        <property name="typeLoginUser" type="string">
+            <column name="type_login_user" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>
