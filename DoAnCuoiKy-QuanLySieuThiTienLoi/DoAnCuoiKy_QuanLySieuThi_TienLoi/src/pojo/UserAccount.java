@@ -1,5 +1,5 @@
 package pojo;
-// Generated May 22, 2014 5:59:47 PM by Hibernate Tools 3.2.1.GA
+// Generated May 24, 2014 11:59:19 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -21,6 +21,7 @@ public class UserAccount  implements java.io.Serializable {
      private Date ngaySinh;
      private String gioiTinh;
      private String typeLoginUser;
+     private String typeLiveUser;
 
     public UserAccount() {
     }
@@ -29,7 +30,7 @@ public class UserAccount  implements java.io.Serializable {
     public UserAccount(String maUser) {
         this.maUser = maUser;
     }
-    public UserAccount(String maUser, String matKhau, String tenUser, String emailUser, String diaChiUser, String phoneUser, String avatarUser, String cmndUser, Date ngaySinh, String gioiTinh, String typeLoginUser) {
+    public UserAccount(String maUser, String matKhau, String tenUser, String emailUser, String diaChiUser, String phoneUser, String avatarUser, String cmndUser, Date ngaySinh, String gioiTinh, String typeLoginUser, String typeLiveUser) {
        this.maUser = maUser;
        this.matKhau = matKhau;
        this.tenUser = tenUser;
@@ -41,6 +42,7 @@ public class UserAccount  implements java.io.Serializable {
        this.ngaySinh = ngaySinh;
        this.gioiTinh = gioiTinh;
        this.typeLoginUser = typeLoginUser;
+       this.typeLiveUser = typeLiveUser;
     }
    
     public String getMaUser() {
@@ -119,6 +121,13 @@ public class UserAccount  implements java.io.Serializable {
     
     public void setTypeLoginUser(String typeLoginUser) {
         this.typeLoginUser = typeLoginUser;
+    }
+    public String getTypeLiveUser() {
+        return this.typeLiveUser;
+    }
+    
+    public void setTypeLiveUser(String typeLiveUser) {
+        this.typeLiveUser = typeLiveUser;
     }
 
 

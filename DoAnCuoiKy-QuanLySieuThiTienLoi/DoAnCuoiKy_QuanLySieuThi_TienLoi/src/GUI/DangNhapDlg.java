@@ -7,6 +7,7 @@ package GUI;
 import cryptography.RSAAsymmetricCryptography;
 import dao.UserAccountDAO;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -89,6 +90,11 @@ public class DangNhapDlg extends javax.swing.JDialog {
                 formWindowClosing(evt);
             }
         });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("Login");
@@ -99,6 +105,12 @@ public class DangNhapDlg extends javax.swing.JDialog {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/486.png"))); // NOI18N
 
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Account:");
 
         jLabel5.setText("Passord:");
@@ -107,6 +119,14 @@ public class DangNhapDlg extends javax.swing.JDialog {
         jtxtAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtxtAccountMouseClicked(evt);
+            }
+        });
+        jtxtAccount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtAccountKeyReleased(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAccountKeyPressed(evt);
             }
         });
 
@@ -121,6 +141,15 @@ public class DangNhapDlg extends javax.swing.JDialog {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jtxtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtPasswordKeyReleased(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPasswordKeyPressed(evt);
             }
         });
 
@@ -261,9 +290,8 @@ public class DangNhapDlg extends javax.swing.JDialog {
         setExitEvent();
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if(jtxtPassword.getText().trim().isEmpty()){
+    private void dangnhapUngdDung(){
+        if(jtxtPassword.getPassword().toString().trim().isEmpty()){
             jlbThongBao.setText("Đăng nhập thất bại!!!");
             return;
         }
@@ -279,6 +307,10 @@ public class DangNhapDlg extends javax.swing.JDialog {
             } else
                 jlbThongBao.setText("Đăng nhập thất bại!!!");
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dangnhapUngdDung();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtxtAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAccountMouseClicked
@@ -301,6 +333,39 @@ public class DangNhapDlg extends javax.swing.JDialog {
         forgotpw.setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jPanel1KeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jtxtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPasswordKeyPressed
+        // TODO add your handling code here:
+  
+    }//GEN-LAST:event_jtxtPasswordKeyPressed
+
+    private void jtxtAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAccountKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtAccountKeyPressed
+
+    private void jtxtAccountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAccountKeyReleased
+        // TODO add your handling code here:
+        //if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Enter"))
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+          dangnhapUngdDung();
+    }//GEN-LAST:event_jtxtAccountKeyReleased
+
+    private void jtxtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPasswordKeyReleased
+        // TODO add your handling code here:
+        //if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Enter"))
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+           dangnhapUngdDung();
+    }//GEN-LAST:event_jtxtPasswordKeyReleased
+
    
     private void actionLogin(UserAccount user){
         jtxtAccount.setText(user.getMaUser());
@@ -314,7 +379,7 @@ public class DangNhapDlg extends javax.swing.JDialog {
            public void run() {
              PrivateKey privateKey = RSAAsymmetricCryptography.getPrivateKey("key.private");
              String strAccount =RSAAsymmetricCryptography.decryptData(privateKey,"key.account");
-               jtxtAccount.setText(strAccount);
+               jtxtAccount.setText(strAccount.toUpperCase());
            }
        }).start();
        //JOptionPane.showMessageDialog(parentthis, strAccount);

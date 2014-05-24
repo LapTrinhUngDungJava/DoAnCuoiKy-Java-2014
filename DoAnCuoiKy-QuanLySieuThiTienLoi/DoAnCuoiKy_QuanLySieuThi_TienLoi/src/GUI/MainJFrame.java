@@ -30,7 +30,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import pojo.UserAccount;
-import sun.org.mozilla.javascript.internal.ContextFactory;
 
 /**
  *
@@ -123,7 +122,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenuItem17 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenuItem18 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMnManager = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JPopupMenu.Separator();
         jMenuItem19 = new javax.swing.JMenuItem();
@@ -334,7 +333,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtxtfChat);
 
         jTextArea2.setColumns(20);
+        jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
+        jTextArea2.setWrapStyleWord(true);
         jScrollPane2.setViewportView(jTextArea2);
 
         jButton15.setText("Send");
@@ -460,34 +461,39 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/manager.png"))); // NOI18N
-        jMenu3.setText("Manager");
+        jMnManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/manager.png"))); // NOI18N
+        jMnManager.setText("Manager");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/quanlynhanvien.png"))); // NOI18N
         jMenuItem5.setText("Quản Lý Nhân Viên");
-        jMenu3.add(jMenuItem5);
-        jMenu3.add(jSeparator16);
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMnManager.add(jMenuItem5);
+        jMnManager.add(jSeparator16);
 
         jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/mathang.png"))); // NOI18N
         jMenuItem19.setText("Quản Lý Mặt Hàng");
-        jMenu3.add(jMenuItem19);
-        jMenu3.add(jSeparator15);
+        jMnManager.add(jMenuItem19);
+        jMnManager.add(jSeparator15);
 
         jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/khachhangthanthiet.png"))); // NOI18N
         jMenuItem21.setText("Khách Hàng Thân Thiết");
-        jMenu3.add(jMenuItem21);
-        jMenu3.add(jSeparator14);
+        jMnManager.add(jMenuItem21);
+        jMnManager.add(jSeparator14);
 
         jMenuItem20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/khuyenmai.png"))); // NOI18N
         jMenuItem20.setText("Chương Trình Khuyến Mãi");
-        jMenu3.add(jMenuItem20);
-        jMenu3.add(jSeparator13);
+        jMnManager.add(jMenuItem20);
+        jMnManager.add(jSeparator13);
 
         jMenuItem22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/quidinh.png"))); // NOI18N
         jMenuItem22.setText("Quản Lý Qui Định");
-        jMenu3.add(jMenuItem22);
+        jMnManager.add(jMenuItem22);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMnManager);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/network.png"))); // NOI18N
         jMenu6.setText("Network");
@@ -607,11 +613,25 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         dnhap.setVisible(true);
+        
     }//GEN-LAST:event_formWindowOpened
 
-    private void actionUserLoginSuccess(UserAccount user){
+    private void updateFormSuccess(UserAccount user){
         user_account = user;
         this.setTitle( strTitle+ "-" + user_account.getMaUser());
+    }
+    private void actionUserLoginSuccess(UserAccount user){
+        updateFormSuccess(user);
+        //Neu la admin hoac moderator thi co the su dung Nhom' menu Manager
+        switch(user.getTypeLoginUser()){
+            case "A":
+            case "M":
+                jMnManager.setEnabled(true);
+                break;
+            case "N":
+                jMnManager.setEnabled(false);
+                break;
+        }
     }
     private void closeWindows(){
         this.dispose();
@@ -658,7 +678,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
         ChangePasswordDlg doimatkhau = new ChangePasswordDlg(this, true, user_account);
-        doimatkhau.addClientDoiMatKhauThanhCongEvent(new PropertyChangeListener() {
+        doimatkhau.addDoiMatKhauThanhCongEvent(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -748,18 +768,25 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         createXMLAccountLogin();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        NhanVienSieuThiDlg nhanvienDlg = new NhanVienSieuThiDlg(this, true, user_account,false);
+        nhanvienDlg.addCapNhatThanhCongCongEvent(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                updateFormSuccess((UserAccount)evt.getNewValue());
+            }
+        });
+        nhanvienDlg.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     private void createXMLAccountLogin(){
      //Save Ma hoa bat doi xung
-     new Thread(new Runnable() {
-
-           @Override
-           public void run() {
-                 KeyPair keyPair = RSAAsymmetricCryptography.generateKeyPair(512);
-                 PublicKey pubKey = RSAAsymmetricCryptography.savePublicKey("key.public", keyPair);
-                 PrivateKey privateKey = RSAAsymmetricCryptography.savePrivateKey("key.private", keyPair);
-                 RSAAsymmetricCryptography.encryptData(user_account.getMaUser(), pubKey, "key.account");
-           }
-       }).start();
+     KeyPair keyPair = RSAAsymmetricCryptography.generateKeyPair(512);
+     PublicKey pubKey = RSAAsymmetricCryptography.savePublicKey("key.public", keyPair);
+     PrivateKey privateKey = RSAAsymmetricCryptography.savePrivateKey("key.private", keyPair);
+     RSAAsymmetricCryptography.encryptData(user_account.getMaUser(), pubKey, "key.account");
      /*
     try{
     Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
@@ -845,7 +872,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -876,6 +902,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu jMnManager;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -22,10 +22,10 @@ public class ChangePasswordDlg extends javax.swing.JDialog {
     private UserAccount user_account;
     private java.awt.Frame  parentthis;
     private PropertyChangeSupport _eVentDoiMatKhauThanhCong = new PropertyChangeSupport(this);
-     public void addClientDoiMatKhauThanhCongEvent(PropertyChangeListener lsn){
+     public void addDoiMatKhauThanhCongEvent(PropertyChangeListener lsn){
         _eVentDoiMatKhauThanhCong.addPropertyChangeListener(lsn);
     }
-    public void removeClientDoiMatKhauThanhCongEvent(PropertyChangeListener lsn){
+    public void removeDoiMatKhauThanhCongEvent(PropertyChangeListener lsn){
         _eVentDoiMatKhauThanhCong.removePropertyChangeListener(lsn);
     }
     public ChangePasswordDlg(java.awt.Frame parent, boolean modal,UserAccount user) {

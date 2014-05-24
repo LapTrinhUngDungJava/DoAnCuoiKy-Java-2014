@@ -31,6 +31,19 @@ public class UserAccountDlg extends javax.swing.JDialog {
             setDataFormUser(user_account);
         
     }
+    private void lammoiDataFindFormUser(){
+        jlbEmail.setText("");
+        jlbMatKhau.setText("");
+        jlbMatKhau.setEnabled(true);
+        jlbHoVaTen.setText("");
+        jlbNgaySinh.setText("");
+        jlbCMND.setText("");
+        jtxtaDiaChi.setText("");
+        jtxtaDiaChi.setEditable(true);
+        jtxtfPhone.setText("");
+        jtxtfPhone.setEditable(true);
+        jlbGioiTinh.setText("");
+    }
     private void setDataFormUser(UserAccount user){
         switch(user.getTypeLoginUser()){
             case "A":
@@ -46,7 +59,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
                 jlbTypeUser.setForeground(Color.BLUE);
                 break;
         }
-        jlbAccount.setText(user.getMaUser());
+        jtxtfldAccount.setText(user.getMaUser());
         jlbMatKhau.setText(user.getMatKhau());
         jlbEmail.setText(user.getEmailUser());
         
@@ -85,7 +98,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
                 jlbTypeUser.setForeground(Color.BLUE);
                 break;
         }
-        jlbAccount.setText(user.getMaUser());
+        jtxtfldAccount.setText(user.getMaUser());
         jlbEmail.setText(user.getEmailUser());
         jlbMatKhau.setText("******");
         jlbMatKhau.setEnabled(false);
@@ -121,7 +134,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
         jchbxShow = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         jlbEmail = new javax.swing.JLabel();
-        jlbAccount = new javax.swing.JTextField();
+        jtxtfldAccount = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -173,7 +186,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
         jlbEmail.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jlbEmail.setText("universestartheky22@gmail.com");
 
-        jlbAccount.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtxtfldAccount.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jButton3.setText("Go");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +211,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtxtfldAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -213,7 +226,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlbAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtfldAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,6 +265,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
         jtxtfPhone.setText("0929287038, 01668033117");
 
         jtxtaDiaChi.setColumns(20);
+        jtxtaDiaChi.setLineWrap(true);
         jtxtaDiaChi.setRows(5);
         jtxtaDiaChi.setText("Lạc Long Quân, Q.11, Tp.HCM");
         jScrollPane1.setViewportView(jtxtaDiaChi);
@@ -384,7 +398,7 @@ public class UserAccountDlg extends javax.swing.JDialog {
                     .addComponent(jLabel19))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -421,10 +435,11 @@ public class UserAccountDlg extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        UserAccount user = UserAccountDAO.layThongTinUser(jlbAccount.getText().trim().toUpperCase());
-        if(user!=null){
+        UserAccount user = UserAccountDAO.layThongTinUser(jtxtfldAccount.getText().trim().toUpperCase());
+        if(user!=null && user.getTypeLiveUser().equals("1")){
             setDataFindFormUser(user);
         }else{
+            lammoiDataFindFormUser();
             JOptionPane.showMessageDialog(parentthis,"Nhân vật này không tồn tại!!","Xin lôi!",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -491,7 +506,6 @@ public class UserAccountDlg extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JCheckBox jchbxShow;
-    private javax.swing.JTextField jlbAccount;
     private javax.swing.JLabel jlbCMND;
     private javax.swing.JLabel jlbEmail;
     private javax.swing.JLabel jlbGioiTinh;
@@ -501,5 +515,6 @@ public class UserAccountDlg extends javax.swing.JDialog {
     private javax.swing.JLabel jlbTypeUser;
     private javax.swing.JTextArea jtxtaDiaChi;
     private javax.swing.JTextField jtxtfPhone;
+    private javax.swing.JTextField jtxtfldAccount;
     // End of variables declaration//GEN-END:variables
 }

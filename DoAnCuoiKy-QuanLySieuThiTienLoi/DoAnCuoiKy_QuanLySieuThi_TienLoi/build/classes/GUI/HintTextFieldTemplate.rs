@@ -1,0 +1,2 @@
+GUI.HintTextField
+GUI.HintTextFieldTemplate
